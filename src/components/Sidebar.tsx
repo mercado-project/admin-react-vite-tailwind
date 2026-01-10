@@ -13,9 +13,8 @@ import {
   LogOut
 } from 'lucide-react'
 
-
 const mainMenu = [
-  { name: 'Dashboard', icon: LayoutDashboard },
+  { name: 'Dashboard', icon: LayoutDashboard, path: '/' },
 ]
 
 const catalogMenu = [
@@ -36,11 +35,18 @@ const managementMenu = [
   { name: 'Inventário', icon: Boxes },
 ]
 
+const baseItemClass = `
+  flex items-center w-full px-3 py-2 text-sm rounded-lg
+  transition-colors
+  text-gray-700 dark:text-gray-200
+  hover:bg-gray-100 dark:hover:bg-gray-700
+`
+
 export default function Sidebar() {
   return (
     <aside className="w-64 bg-white dark:bg-gray-800 border-r dark:border-gray-700 flex flex-col">
       {/* Logo */}
-      <div className="h-16 flex items-center px-6 font-bold text-xl">
+      <div className="h-16 flex items-center px-6 font-bold text-xl text-gray-900 dark:text-white">
         Mercado Admin
       </div>
 
@@ -53,15 +59,13 @@ export default function Sidebar() {
       </nav>
 
       {/* Footer */}
-      <div className="border-t p-4 space-y-2">
-        <button className="flex items-center w-full px-3 py-2 text-sm rounded-lg
-              text-gray-700 dark:text-gray-200
-              hover:bg-gray-100 dark:hover:bg-gray-700">
+      <div className="border-t dark:border-gray-700 p-4 space-y-2">
+        <button className={baseItemClass}>
           <Settings className="w-5 h-5 mr-3" />
           Configurações
         </button>
 
-        <button className="flex items-center w-full px-3 py-2 text-sm text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+        <button className="flex items-center w-full px-3 py-2 text-sm rounded-lg transition-colors text-red-500 hover:bg-red-50 dark:hover:bg-gray-700">
           <LogOut className="w-5 h-5 mr-3" />
           Sair
         </button>
@@ -95,11 +99,11 @@ function MenuSection({
               to={item.path}
               className={({ isActive }) =>
                 `
-                flex items-center w-full px-3 py-2 text-sm rounded-lg
+                ${baseItemClass}
                 ${
                   isActive
-                    ? 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                    ? 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white'
+                    : ''
                 }
               `
               }
@@ -108,11 +112,8 @@ function MenuSection({
               {item.name}
             </NavLink>
           ) : (
-            <button
-              key={item.name}
-              className="flex items-center w-full px-3 py-2 text-sm rounded-lg text-gray-700 hover:bg-gray-100"
-            >
-              <item.icon className="w-5 h-5 mr-3 text-gray-500" />
+            <button key={item.name} className={baseItemClass}>
+              <item.icon className="w-5 h-5 mr-3" />
               {item.name}
             </button>
           )
