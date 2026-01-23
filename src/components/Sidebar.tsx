@@ -7,6 +7,7 @@ import {
   ShoppingCart,
   Receipt,
   Users,
+  UserCircle,
   Percent,
   Boxes,
   Settings,
@@ -30,9 +31,9 @@ const salesMenu = [
 ]
 
 const managementMenu = [
-  { name: 'Clientes', icon: Users },
-  { name: 'Usuários', icon: Users },
-  { name: 'Inventário', icon: Boxes },
+  { name: 'Clientes', icon: Users, path: '/customers' },
+  { name: 'Usuários', icon: UserCircle, path: '/users' },
+  { name: 'Inventário', icon: Boxes, path: '/inventory' },
 ]
 
 const baseItemClass = `
