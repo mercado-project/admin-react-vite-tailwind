@@ -23,6 +23,7 @@ import {
   AlertCircle,
   CheckCircle2,
 } from 'lucide-react'
+import StatCard from '../components/common/StatCard'
 
 type InventoryProduct = Product & {
   price?: Price
@@ -63,7 +64,7 @@ export default function Inventory() {
         const productPrices = pricesData
           .filter((p) => p.productId === product.id)
           .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-        
+
         const productStock = stocksData.find((s) => s.productId === product.id)
 
         return {
@@ -355,11 +356,10 @@ export default function Inventory() {
                         ) : (
                           <div className="flex items-center gap-2">
                             <span
-                              className={`text-sm font-medium ${
-                                product.stock && product.stock.quantity < 10
-                                  ? 'text-red-600 dark:text-red-400'
-                                  : 'text-gray-900 dark:text-white'
-                              }`}
+                              className={`text-sm font-medium ${product.stock && product.stock.quantity < 10
+                                ? 'text-red-600 dark:text-red-400'
+                                : 'text-gray-900 dark:text-white'
+                                }`}
                             >
                               {product.stock ? product.stock.quantity : '-'}
                             </span>
@@ -430,11 +430,10 @@ export default function Inventory() {
         {/* NOTIFICATION */}
         {notification && (
           <div
-            className={`fixed bottom-4 right-4 flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg ${
-              notification.type === 'success'
-                ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800'
-                : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800'
-            }`}
+            className={`fixed bottom-4 right-4 flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg ${notification.type === 'success'
+              ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800'
+              : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800'
+              }`}
           >
             {notification.type === 'success' ? (
               <CheckCircle2 className="w-5 h-5 text-green-600" />
@@ -442,11 +441,10 @@ export default function Inventory() {
               <AlertCircle className="w-5 h-5 text-red-600" />
             )}
             <span
-              className={`text-sm font-medium ${
-                notification.type === 'success'
-                  ? 'text-green-800 dark:text-green-200'
-                  : 'text-red-800 dark:text-red-200'
-              }`}
+              className={`text-sm font-medium ${notification.type === 'success'
+                ? 'text-green-800 dark:text-green-200'
+                : 'text-red-800 dark:text-red-200'
+                }`}
             >
               {notification.message}
             </span>
@@ -457,41 +455,5 @@ export default function Inventory() {
   )
 }
 
-/* ===================== */
-/* StatCard Component    */
-/* ===================== */
 
-function StatCard({
-  icon: Icon,
-  label,
-  value,
-  color,
-}: {
-  icon: any
-  label: string
-  value: number
-  color: 'blue' | 'green' | 'purple' | 'red'
-}) {
-  const colorClasses = {
-    blue: 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400',
-    green:
-      'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800 text-green-600 dark:text-green-400',
-    purple:
-      'bg-purple-50 dark:bg-purple-900/20 border-purple-200 dark:border-purple-800 text-purple-600 dark:text-purple-400',
-    red: 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-600 dark:text-red-400',
-  }
 
-  return (
-    <div
-      className={`p-4 rounded-lg border ${colorClasses[color]} flex items-center gap-4`}
-    >
-      <div className="p-2 rounded-lg bg-white/50 dark:bg-gray-800/50">
-        <Icon className="w-6 h-6" />
-      </div>
-      <div>
-        <div className="text-2xl font-bold">{value}</div>
-        <div className="text-xs font-medium opacity-80">{label}</div>
-      </div>
-    </div>
-  )
-}

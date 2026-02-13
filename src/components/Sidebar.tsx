@@ -25,9 +25,9 @@ const catalogMenu = [
 ]
 
 const salesMenu = [
-  { name: 'Vendas', icon: ShoppingCart },
+  { name: 'Vendas', icon: ShoppingCart, path: '/sales' },
   { name: 'Pedidos', icon: Receipt, path: '/orders' },
-  { name: 'Promoções', icon: Percent },
+  { name: 'Promoções', icon: Percent, path: '/promotions' },
 ]
 
 const managementMenu = [

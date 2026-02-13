@@ -62,6 +62,8 @@ export type OrdersQueryParams = {
   limit?: number
   search?: string
   status?: OrderStatus
+  startDate?: string
+  endDate?: string
 }
 
 /* ===================== */
@@ -89,4 +91,20 @@ export function updateOrderStatus(id: number, status: OrderStatus) {
 
 export function deleteOrder(id: number) {
   return axios.delete(`${API_URL}/${id}`)
+}
+
+export type OrderStats = {
+  today: {
+    count: number
+    total: number
+  }
+  month: {
+    count: number
+    total: number
+  }
+}
+
+export async function getOrderStats(): Promise<OrderStats> {
+  const { data } = await axios.get(`${API_URL}/stats`)
+  return data
 }
