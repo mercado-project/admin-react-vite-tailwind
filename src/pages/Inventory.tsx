@@ -11,7 +11,6 @@ import {
   type Price,
   type Stock,
 } from '../services/inventory.service'
-import Modal from '../components/Modal'
 import {
   Edit2,
   Save,

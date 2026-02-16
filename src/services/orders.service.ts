@@ -108,3 +108,35 @@ export async function getOrderStats(): Promise<OrderStats> {
   const { data } = await axios.get(`${API_URL}/stats`)
   return data
 }
+
+/* ===================== */
+/* CREATE ORDER TYPES    */
+/* ===================== */
+
+export type CreateOrderItemPayload = {
+  productId: number
+  quantity: number
+}
+
+export type CreateOrderPayload = {
+  customerId: number
+  deliveryAddressId?: number
+  paymentMethod: PaymentMethod
+  status: OrderStatus
+  items: CreateOrderItemPayload[]
+}
+
+export async function createOrder(payload: CreateOrderPayload): Promise<Order> {
+  // The backend expects { order: {...}, items: [...] } structure
+  const body = {
+    order: {
+      customerId: payload.customerId,
+      deliveryAddressId: payload.deliveryAddressId,
+      paymentMethod: payload.paymentMethod,
+      status: payload.status,
+    },
+    items: payload.items,
+  }
+  const { data } = await axios.post(API_URL, body)
+  return data
+}

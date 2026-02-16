@@ -56,3 +56,11 @@ export async function createProductPrice(payload: {
 }) {
   return api.post('/prices', payload)
 }
+
+export async function searchProducts(query: string): Promise<Product[]> {
+  // Backend supports /products/search?w=...
+  const { data } = await api.get('/products/search', {
+    params: { w: query },
+  })
+  return Array.isArray(data) ? data : []
+}

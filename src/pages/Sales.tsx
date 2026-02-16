@@ -239,6 +239,7 @@ export default function Sales() {
           )}
         </SalesModal>
       </div>
+
     </AdminLayout>
   );
 }

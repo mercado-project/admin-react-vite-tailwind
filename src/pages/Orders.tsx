@@ -9,6 +9,9 @@ import {
   type OrderStatus,
   type OrdersQueryParams,
 } from '../services/orders.service'
+import { Plus } from 'lucide-react'
+import SalesModal from '../components/sales/SalesModal'
+import NewOrderForm from '../components/sales/NewOrderForm'
 
 /* ===================== */
 /* PAGE                  */
@@ -25,6 +28,7 @@ export default function Orders() {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null)
   const [statusModalOpen, setStatusModalOpen] = useState(false)
   const [newStatus, setNewStatus] = useState<OrderStatus | ''>('')
+  const [isNewOrderModalOpen, setIsNewOrderModalOpen] = useState(false)
 
   /* ===================== */
   /* LOAD DATA             */
@@ -179,6 +183,13 @@ export default function Orders() {
               Gerencie todos os pedidos dos clientes
             </p>
           </div>
+          <button
+            onClick={() => setIsNewOrderModalOpen(true)}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center gap-2"
+          >
+            <Plus className="w-4 h-4" />
+            Novo Pedido
+          </button>
         </div>
 
         {/* FILTERS */}
@@ -492,6 +503,22 @@ export default function Orders() {
           </div>
         </div>
       )}
+
+      {/* New Order Modal */}
+      <SalesModal
+        isOpen={isNewOrderModalOpen}
+        title="Novo Pedido"
+        onClose={() => setIsNewOrderModalOpen(false)}
+        size="lg"
+      >
+        <NewOrderForm
+          onSuccess={() => {
+            setIsNewOrderModalOpen(false)
+            loadData()
+          }}
+          onCancel={() => setIsNewOrderModalOpen(false)}
+        />
+      </SalesModal>
     </AdminLayout>
   )
 }

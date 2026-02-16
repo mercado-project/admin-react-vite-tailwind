@@ -61,3 +61,12 @@ export function updateCustomer(
 export function deleteCustomer(id: number) {
   return axios.delete(`${API_URL}/customers/${id}`)
 }
+
+export async function searchCustomers(query: string): Promise<Customer[]> {
+  // Backend supports ?search=...
+  const response = await axios.get(`${API_URL}/customers`, {
+    params: { search: query, limit: 10 },
+  })
+  const { data } = response.data
+  return Array.isArray(data) ? data : []
+}
